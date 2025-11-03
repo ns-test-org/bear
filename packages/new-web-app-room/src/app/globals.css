@@ -147,3 +147,41 @@ body {
 .animate-bounce-horizontal {
   animation: bounce-horizontal 1.5s ease-in-out infinite;
 }
+
+/* Bear interaction animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Custom brown color for bear cards */
+.bg-brown-50 {
+  background-color: #fdf8f6;
+}
+
+/* Hover effects for buttons */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Bear character hover effect */
+.bear-character:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+

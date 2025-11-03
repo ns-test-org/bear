@@ -2,83 +2,141 @@
 
 import { useEffect, useState } from 'react';
 
-const slogans = [
-  "Turn chats into apps",
-  "Prompt. Ship. Repeat.",
-  "Build anything from a chat",
-  "Ideas → Apps, instantly",
-  "From zero to MVP in minutes",
-  "Your cofounder in the command line",
-  "Draft, iterate, deploy",
-  "Ship faster than you can type",
-  "Design in text, deliver in code",
-  "Dream it. Prompt it. Run it.",
-  "Chat-native app building",
-  "From prompt to product",
-  "One prompt, infinite apps",
-  "Stop scaffolding. Start shipping.",
-  "Prototype at the speed of thought",
-  "Make conversations executable"
+const bearFacts = [
+  "Bears can run up to 35 mph - faster than any human!",
+  "A bear's sense of smell is 7 times better than a bloodhound's",
+  "Bears are excellent swimmers and can swim for miles",
+  "Polar bears have black skin under their white fur",
+  "Bears can live up to 30 years in the wild",
+  "A group of bears is called a 'sleuth' or 'sloth'",
+  "Bears have an excellent memory and can remember food sources for years",
+  "Baby bears are called cubs and stay with mom for 2-3 years"
 ];
 
-export default function Landing() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+export default function InteractiveBearDisplay() {
+  const [bearState, setBearState] = useState('idle');
+  const [currentFact, setCurrentFact] = useState(0);
+  const [showFact, setShowFact] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % slogans.length);
-        setIsVisible(true);
-      }, 400);
-    }, 2800);
+  const handleBearAction = (action: string) => {
+    setBearState(action);
+    setTimeout(() => setBearState('idle'), 2000);
+  };
 
-    return () => clearInterval(interval);
-  }, []);
+  const showRandomFact = () => {
+    const randomIndex = Math.floor(Math.random() * bearFacts.length);
+    setCurrentFact(randomIndex);
+    setShowFact(true);
+    setTimeout(() => setShowFact(false), 4000);
+  };
 
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-black text-white">
-      {/* Enhanced animated aurora background layers */}
-      <div className="absolute inset-0 bg-aurora-layer-1" />
-      <div className="absolute inset-0 bg-aurora-layer-2" />
-      <div className="absolute inset-0 bg-aurora-layer-3" />
-      
-      {/* Floating particles overlay */}
-      <div className="absolute inset-0 bg-particles" />
-      
-      {/* Main content - centered */}
-      <main className="relative z-10 h-full flex flex-col items-center justify-center px-6">
-        <h1 className="text-center text-[clamp(28px,6vw,64px)] font-medium tracking-tight mb-4">
-          Turn Chats into Apps
+    <div className="min-h-screen bg-gradient-to-br from-green-100 via-blue-50 to-purple-100 p-8">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-5xl font-bold text-gray-800 mb-4">
+          🐻 Interactive Bear Character 🐻
         </h1>
-        
-        {/* Rotating slogans */}
-        <div className="mt-4 h-8 md:h-10 overflow-hidden flex items-center justify-center">
-          <span
-            className={`inline-block text-center text-[clamp(18px,3vw,32px)] font-light transition-all duration-[400ms] ease-in-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-            }`}
-          >
-            {slogans[currentIndex]}
-          </span>
+        <p className="text-xl text-gray-600">
+          Click the buttons to interact with our friendly bear!
+        </p>
+      </div>
+
+      {/* Main Bear Display */}
+      <div className="flex flex-col items-center justify-center mb-8">
+        {/* Bear Character */}
+        <div className={`text-[200px] transition-all duration-500 ${
+          bearState === 'wave' ? 'animate-bounce' :
+          bearState === 'dance' ? 'animate-spin' :
+          bearState === 'sleep' ? 'opacity-50 scale-90' :
+          'hover:scale-110'
+        }`}>
+          {bearState === 'sleep' ? '😴' : '🐻'}
         </div>
-      </main>
-      
-      {/* Start Prompting arrow pointing left - bottom left */}
-      <div className="absolute left-6 md:left-8 bottom-[5%] z-20 flex items-center gap-3 arrow-point-left">
-        <div className="flex items-center gap-2 text-white/80 font-medium text-sm md:text-base">
-          <svg 
-            className="w-5 h-5 md:w-6 md:h-6 animate-bounce-horizontal" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
+
+        {/* Bear Status */}
+        <div className="text-2xl font-semibold text-gray-700 mb-6 h-8">
+          {bearState === 'wave' && '👋 The bear is waving at you!'}
+          {bearState === 'dance' && '💃 The bear is dancing!'}
+          {bearState === 'sleep' && '😴 Shhh... the bear is sleeping...'}
+          {bearState === 'idle' && '🐻 The bear is waiting for you to interact!'}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-4 justify-center mb-8">
+          <button
+            onClick={() => handleBearAction('wave')}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Start prompting</span>
+            👋 Make Bear Wave
+          </button>
+          <button
+            onClick={() => handleBearAction('dance')}
+            className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg"
+          >
+            💃 Make Bear Dance
+          </button>
+          <button
+            onClick={() => handleBearAction('sleep')}
+            className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg"
+          >
+            😴 Make Bear Sleep
+          </button>
+          <button
+            onClick={showRandomFact}
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg"
+          >
+            🧠 Bear Fact
+          </button>
+        </div>
+
+        {/* Bear Fact Display */}
+        {showFact && (
+          <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 max-w-2xl mx-auto rounded-lg shadow-lg animate-fade-in">
+            <div className="flex items-center">
+              <div className="text-2xl mr-3">💡</div>
+              <div>
+                <p className="text-lg font-medium text-gray-800">
+                  Did you know?
+                </p>
+                <p className="text-gray-700">
+                  {bearFacts[currentFact]}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Fun Stats */}
+      <div className="bg-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+          🐻 Bear Species Around the World 🌍
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="text-center p-4 bg-brown-50 rounded-lg">
+            <div className="text-4xl mb-2">🐻‍❄️</div>
+            <h3 className="font-semibold">Polar Bear</h3>
+            <p className="text-sm text-gray-600">Arctic regions</p>
+          </div>
+          <div className="text-center p-4 bg-brown-50 rounded-lg">
+            <div className="text-4xl mb-2">🐻</div>
+            <h3 className="font-semibold">Brown Bear</h3>
+            <p className="text-sm text-gray-600">North America & Europe</p>
+          </div>
+          <div className="text-center p-4 bg-brown-50 rounded-lg">
+            <div className="text-4xl mb-2">🐼</div>
+            <h3 className="font-semibold">Giant Panda</h3>
+            <p className="text-sm text-gray-600">China</p>
+          </div>
+          <div className="text-center p-4 bg-brown-50 rounded-lg">
+            <div className="text-4xl mb-2">🖤</div>
+            <h3 className="font-semibold">Black Bear</h3>
+            <p className="text-sm text-gray-600">North America</p>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
