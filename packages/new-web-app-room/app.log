@@ -1,0 +1,10 @@
+
+> 8d39f929-aba5-4e27-ad3a-3022a38af00f@0.1.0 dev /workspace/git-repo/packages/new-web-app-room
+> next dev --turbopack -p 4000
+
+   ▲ Next.js 15.4.6 (Turbopack)
+   - Local:        http://localhost:4000
+   - Network:      http://10.0.0.1:4000
+
+ ✓ Starting...
+ ✓ Ready in 3.3s
